@@ -1,0 +1,4 @@
+﻿  ConsoleApplication1.c
+C:\Users\Azur Laptop\Projects\visual studio\C\Pointeurs\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.c(22,2): warning C4013: 'multiplication' non défini(e) ; extern retournant int pris par défaut
+C:\Users\Azur Laptop\Projects\visual studio\C\Pointeurs\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.c(35,1): warning C4716: 'multiplication' : doit retourner une valeur
+  ConsoleApplication1.vcxproj -> C:\Users\Azur Laptop\Projects\visual studio\C\Pointeurs\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
