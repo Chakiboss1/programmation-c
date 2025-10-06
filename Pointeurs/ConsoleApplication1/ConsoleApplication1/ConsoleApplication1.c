@@ -1,46 +1,41 @@
-// ConsoleApplication1.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
-
+#include <windows.h>
 #include <stdio.h>
 
+DWORD WINAPI fonction_thread(LPVOID arg) {
+    int id = *(int*)arg;
 
+    for (int i = 0; i <= 1000; i++) {
+        printf("Thread %d : %d\n", id, i);
+        Sleep(1); // ralentit un peu pour voir le mélange des threads
+    }
 
+    return 0;
+}
 
 int main(void) {
-	
+    HANDLE threads[3];
+    int ids[3] = { 1, 2, 3 };
 
-	float variable = 0;
-	int nombreE = 6;
-	float nombreZ = 7;
+    // Création de 3 threads
+    for (int i = 0; i < 3; i++) {
+        threads[i] = CreateThread(
+            NULL,                // sécurité par défaut
+            0,                   // taille de pile par défaut
+            fonction_thread,     // fonction exécutée par le thread
+            &ids[i],             // paramètre passé (ici l'id)
+            0,                   // démarrer immédiatement
+            NULL                 // on ne récupère pas l’ID du thread
+        );
 
-	float *pt_variable = &variable;
-	int *pt_nombreE = &nombreE;
-	float *pt_nombreZ = &nombreZ;
+        if (threads[i] == NULL) {
+            printf("Erreur création du thread %d\n", i + 1);
+            return 1;
+        }
+    }
 
+    // Attendre que tous les threads se terminent
+    WaitForMultipleObjects(3, threads, TRUE, INFINITE);
 
-	printf("voici les chiffres avant l'execution de la fonction : variable : %f, nombreE : %d, nombreZ : %f\n", variable, nombreE, nombreZ);
-	multiplication(&pt_variable, &pt_nombreE, &pt_nombreZ);
-	printf("voici les chiffres apres l'execution de la fonction : variable : %f, nombreE : %d, nombreZ : %f\n", variable, nombreE, nombreZ);
-
-	
-
-
-
-
-
+    printf("\nTous les threads ont terminé.\n");
+    return 0;
 }
-int multiplication(float **variable, int **nombreE, float **nombreZ) {
-	**variable = (**nombreE) * (**nombreZ);
-
-}
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
