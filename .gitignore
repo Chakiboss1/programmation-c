@@ -1,0 +1,14 @@
+# Fichiers Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# Dossiers temporaires
+bin/
+obj/
+Debug/
+Release/
